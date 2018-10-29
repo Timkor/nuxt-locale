@@ -7,7 +7,11 @@ export default (moduleOptions) => {
         ...moduleOptions
     };
 
-    this.addTemplate({
-        src: path.resolve(__dirname, 'templates/plugin.js')
+    console.log(Object.keys(this))
+
+    this.addPlugin({
+        src: path.resolve(__dirname, 'templates/plugin.js'),
+        fileName: path.join('nuxt-locale', 'plugin.js'),
+        options: options
     })
 }
