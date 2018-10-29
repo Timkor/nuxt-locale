@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-locale",
+  "version": "1.0.0",
+  "description": "Localisation for Nuxt.js",
+  "main": "src/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timkor/nuxt-locale.git"
+  },
+  "keywords": [
+    "Nuxt",
+    "Locale",
+    "localisation",
+    "translation",
+    "language",
+    "regio",
+    "currency"
+  ],
+  "author": "Timkor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Timkor/nuxt-locale/issues"
+  },
+  "homepage": "https://github.com/Timkor/nuxt-locale#readme"
+}
