@@ -43,7 +43,7 @@ module.exports = {
     '@nuxtjs/axios',
     ['~/../src/index.js', {
 
-      defaultLocale: 'fr-FR',
+      defaultLocale: 'en-GB',
       
       locales: [
         {

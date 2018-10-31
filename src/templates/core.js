@@ -1,9 +1,5 @@
 
-
-
-
-
-export function createCore(defaultLocale, locales) {
+export function createCore(app, defaultLocale, locales) {
 
     return {
         
@@ -25,7 +21,7 @@ export function createCore(defaultLocale, locales) {
 
         //defaultLocale: defaultLocale,
         currentLocale: locales.find(locale => locale.iso === defaultLocale),
-        locales: locales,     
+        locales: locales,
 
         route(route) {
 
@@ -36,6 +32,9 @@ export function createCore(defaultLocale, locales) {
         },
 
         text(identifier) {
+            
+            
+            return app.store.getters['nuxt-locale-store/getValue'](identifier);
 
         },
 

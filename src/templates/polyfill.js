@@ -15,7 +15,7 @@ export function createPolyfill() {
 
     } else {
         
-        if (!(global || window).Intl) {
+        if (!((global || window).Intl)) {
 
             return new Promise((resolve, reject) => {
 
@@ -24,7 +24,7 @@ export function createPolyfill() {
                     <% _.forEach(options.languages, function (language) { %>'intl/locale-data/jsonp/<%=language.toLowerCase()%>.js',
                     <% }) %>
                 ], function (require) {
-                    
+
                     require('intl');
                     
                     <% _.forEach(options.languages, function (language) { %>require('intl/locale-data/jsonp/<%=language.toLowerCase()%>.js');

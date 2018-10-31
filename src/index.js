@@ -1,11 +1,14 @@
 import path from 'path';
-import {readdirSync} from 'fs';
+import { readdirSync } from 'fs';
 
 import { validateLocale, completeLocale } from './helpers/locale';
+import { createMiddleware } from './helpers/middleware';
+import { defaultOptions } from './helpers/constants';
 
 export default function nuxtLocale (moduleOptions) {
 
     const options = {
+        ...defaultOptions,
         ...moduleOptions
     };
 
@@ -27,8 +30,6 @@ export default function nuxtLocale (moduleOptions) {
     });
 
     // Default locale:
-    console.log('a');
-    
     const templatesPath = path.resolve(__dirname, 'templates');
 
     // Add all templates:
@@ -53,4 +54,7 @@ export default function nuxtLocale (moduleOptions) {
     this.options.router.middleware.push('nuxt-locale-middleware');
 
     // Add server middleware:
+    this.addServerMiddleware(createMiddleware(
+        path.join(this.options.srcDir, options.localeDir)
+    ));
 }
