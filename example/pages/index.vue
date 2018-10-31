@@ -3,7 +3,7 @@
     <div>
       <logo/>
       <h1 class="title">
-        basic
+        <!--{{$locale.money(20.3252353542)}}-->
       </h1>
       <h2 class="subtitle">
         Example using nuxt-locale

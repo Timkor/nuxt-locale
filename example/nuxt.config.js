@@ -41,11 +41,29 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    '~/../../src/index.js'
+    ['~/../src/index.js', {
+
+      defaultLocale: 'fr-FR',
+      
+      locales: [
+        {
+          iso: 'en-gb',
+          domain: 'example.co.uk'
+        },
+        {
+          iso: 'nl-nl',
+          domain: 'example.nl'
+        },
+        {
+          iso: 'fr-fr',
+          domain: 'example.fr'
+        },
+      ]
+    }]
   ],
 
   watch: [
-    '~/../../src/*.js'
+    '~/../src/*.js'
   ],
 
   /*
