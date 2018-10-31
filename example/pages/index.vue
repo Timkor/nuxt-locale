@@ -19,6 +19,10 @@
             <b>Date:</b>
             {{$locale.date(new Date())}}
         </div>
+
+        <div>
+            {{$locale.text('description', { value: $locale.money(10, { minimumFractionDigits: 0 }) })}}
+        </div>
     </div>
 </template>
 

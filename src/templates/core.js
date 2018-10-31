@@ -31,11 +31,14 @@ export function createCore(app, defaultLocale, locales) {
 
         },
 
-        text(identifier) {
+        text(identifier, options) {
             
             
-            return app.store.getters['nuxt-locale-store/getValue'](identifier);
+            const template = app.store.getters['nuxt-locale-store/getValue'](identifier);
 
+            return template.replace(/{{([a-zA-Z0-9]+)}}/g, (value, name) => {
+                return options[name];
+            });
         },
 
         number(number, options) {

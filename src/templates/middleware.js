@@ -12,7 +12,14 @@ middleware['nuxt-locale-middleware'] = async ({ app, req, res, route, store, red
     console.log('middleware');
 
     const scopes = [
-        'index'
+
+        // Global scopes:
+
+        // Static route scope:
+        route.name
+
+        // Dynamic route scopes:
+        
     ];
 
     return store.dispatch('nuxt-locale-store/requireScopes', scopes);

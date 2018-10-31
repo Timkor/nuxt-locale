@@ -89,7 +89,6 @@ export function createStore(store, moduleName) {
         getters: {
 
             getValue(state) {
-
                 return (identifier) => {
 
                     console.log('getValue(\'' + identifier + '\')')
