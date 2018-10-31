@@ -21,15 +21,14 @@ export function createPolyfill() {
 
                 require.ensure([
                     'intl',
-                    'intl/locale-data/jsonp/en.js',
-                    'intl/locale-data/jsonp/fr.js',
-                    'intl/locale-data/jsonp/nl.js'
+                    <% _.forEach(options.languages, function (language) { %>'intl/locale-data/jsonp/<%=language.toLowerCase()%>.js',
+                    <% }) %>
                 ], function (require) {
-                    console.log('require intl')
+                    
                     require('intl');
-                    require('intl/locale-data/jsonp/en.js');
-                    require('intl/locale-data/jsonp/fr.js');
-                    require('intl/locale-data/jsonp/nl.js');
+                    
+                    <% _.forEach(options.languages, function (language) { %>require('intl/locale-data/jsonp/<%=language.toLowerCase()%>.js');
+                    <% }) %>
                     resolve();
                 });
         

@@ -9,18 +9,25 @@ export default function nuxtLocale (moduleOptions) {
         ...moduleOptions
     };
 
-    
-    const locales = options.locales.map(locale => {
+    // Validate and complete locales:
+    options.locales = options.locales.map(locale => {
         
         validateLocale(locale);
 
         return completeLocale(locale);
-
     });
 
-    //const languages = locales
+    // Make list of languages:
+    options.languages = options.languages || [];
 
-    console.log(locales);
+    options.locales.map(locale => locale.language).forEach(language => {
+        if (!(language in options.languages)) {
+            options.languages.push(language);
+        }
+    });
+
+    console.log(options.languages);
+    
 
     const templatesPath = path.resolve(__dirname, 'templates');
 
