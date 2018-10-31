@@ -14,16 +14,19 @@ export function validateLocale(locale) {
 export function completeLocale(locale) {
 
 
-    const [language, regio] = locale.iso.toUpperCase().split('-');
+    const [language, regio] = locale.iso.split('-');
+
+    // ISO correctness:
+    locale.iso = language.toLowerCase() + '-' + regio.toUpperCase();
 
     // Language:
     if (!locale.language) {
-        locale.language = language;
+        locale.language = language.toLowerCase();
     }
 
     // Regio:
     if (!locale.regio) {
-        locale.regio = regio;
+        locale.regio = regio.toUpperCase();
     }
 
     // Currency:

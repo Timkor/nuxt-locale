@@ -6,27 +6,22 @@ export function createStore(store, moduleName) {
         namespaced: true,
 
         state: () => ({
-            locale: '',
-            messages: {}
+            scopes: {},
+            scopeList: [],
         }),
 
-        actions: {
-            setLocale ({ commit }, locale) {
-                commit('setLocale', locale);
-            },
-            setMessages ({ commit }, messages) {
-                commit('setMessages', messages);
-          }
+        mutations: {
+
+            addScope(state, scope) {
+                state.scopes[scope.id] = scope;
+                state.scopeList.push(scope.id);
+            }
         },
 
-        mutations: {
-          setLocale(state, locale) {
-            state.locale = locale
-          },
-
-          setMessages(state, messages) {
-            state.messages = messages
-          }
-        }
+        actions: {
+            addScope({ commit }, scope) {
+                commit('addScope', scope);
+            },
+        },
     })
 }

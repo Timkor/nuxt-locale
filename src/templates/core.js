@@ -3,7 +3,7 @@
 
 
 
-export function createCore(currentLocale, locales) {
+export function createCore(defaultLocale, locales) {
 
     return {
         
@@ -23,13 +23,14 @@ export function createCore(currentLocale, locales) {
             return this.currentLocale.currency;
         },
 
-        currentLocale: currentLocale,
-        locales: locales,        
+        //defaultLocale: defaultLocale,
+        currentLocale: locales.find(locale => locale.iso === defaultLocale),
+        locales: locales,     
 
         route(route) {
 
         },
-        
+
         url(route) {
 
         },

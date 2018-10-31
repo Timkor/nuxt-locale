@@ -1,3 +1,4 @@
+// Router middleware
 
 import middleware from '../middleware';
 
@@ -8,5 +9,10 @@ middleware['nuxt-locale-middleware'] = async ({ app, req, res, route, store, red
         return;
     }
 
-    
+    store.dispatch('nuxt-locale-store/addScope', {
+        id: 'qwe',
+        messages: {
+            a: 'a'
+        }
+    })
 }

@@ -26,9 +26,9 @@ export default function nuxtLocale (moduleOptions) {
         }
     });
 
-    console.log(options.languages);
+    // Default locale:
+    console.log('a');
     
-
     const templatesPath = path.resolve(__dirname, 'templates');
 
     // Add all templates:

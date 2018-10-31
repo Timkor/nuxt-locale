@@ -8,7 +8,10 @@ export default ({app, route, store}, inject) => {
     
     createStore(store, 'nuxt-locale-store');
     
-    inject('locale', createCore());
-    
+    inject('locale', createCore(
+        'nl-NL',
+        <%= JSON.stringify(options.locales) %>
+    ));
+
     return createPolyfill();
 }
