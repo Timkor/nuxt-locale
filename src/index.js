@@ -4,6 +4,8 @@ import { readdirSync } from 'fs';
 import { validateLocale, completeLocale } from './helpers/locale';
 import { createMiddleware } from './helpers/middleware';
 import { defaultOptions } from './helpers/constants';
+import { completeGlobalScope, compelteDynamicScope } from './helpers/scope';
+import { getAllLanguages } from './helpers/language';
 
 export default function nuxtLocale (moduleOptions) {
 
@@ -12,22 +14,13 @@ export default function nuxtLocale (moduleOptions) {
         ...moduleOptions
     };
 
-    // Validate and complete locales:
-    options.locales = options.locales.map(locale => {
-        
-        validateLocale(locale);
-
-        return completeLocale(locale);
-    });
+    // Validate and complete:
+    options.locales = options.locales.map(completeLocale);
+    options.globalScopes = options.globalScopes.map(completeGlobalScope);
+    options.dynamicScopes = options.dynamicScopes.map(compelteDynamicScope);
 
     // Make list of languages:
-    options.languages = options.languages || [];
-
-    options.locales.map(locale => locale.language).forEach(language => {
-        if (!(language in options.languages)) {
-            options.languages.push(language);
-        }
-    });
+    options.languages = getAllLanguages(options.locales);
 
     // Default locale:
     const templatesPath = path.resolve(__dirname, 'templates');

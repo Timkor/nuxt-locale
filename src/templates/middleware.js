@@ -1,26 +1,70 @@
-// Router middleware
 
-import middleware from '../middleware';
-
-middleware['nuxt-locale-middleware'] = async ({ app, req, res, route, store, redirect, isHMR }) => {
+export function createMiddleware(globalScopes, dynamicScopes) {
     
+    const globalScopeList = globalScopes.map(scope => scope.scopeId);
+    
+    const dynamicScopesMap = {};
 
-    if (isHMR) {
-        return;
+    // Faster lookup for route:
+    dynamicScopes.forEach(scope => {
+
+        if (typeof dynamicScopesMap[scope.routeName] == 'undefined') {
+            dynamicScopesMap[scope.routeName] = [];
+        }
+
+        dynamicScopesMap[scope.routeName].push(scope.scopeId);
+    });
+
+    function getGlobalScopes() {
+        return globalScopeList;
     }
 
-    console.log('middleware');
+    function getStaticScopes(route) {
 
-    const scopes = [
+        if (route.name) {
+            return [route.name];
+        }
 
-        // Global scopes:
+        return [];
+    }
 
-        // Static route scope:
-        route.name
+    function getDynamicScopes(route) {
 
-        // Dynamic route scopes:
+        if (route.name && route.name in dynamicScopesMap) {
+
+            return dynamicScopesMap[route.name].map(scopeIdTemplate => {
+
+                // Evaluatue template:
+                return scopeIdTemplate.replace(/\:([a-zA-Z0-9]+)/g, (value, name) => {
+                    
+                    // Lookup route param:
+                    return route.params[name];
+                });
+            })
+        }
+
+        return [];
+    }
+
+    return async ({ app, req, res, route, store, redirect, isHMR }) => {
         
-    ];
 
-    return store.dispatch('nuxt-locale-store/requireScopes', scopes);
+        if (isHMR) {
+            return;
+        }
+
+        const scopes = [
+
+            ...getGlobalScopes(),
+
+            ...getStaticScopes(route),
+
+            ...getDynamicScopes(route)
+        ];
+        
+        console.log('Route: ', route);
+        console.log('Scopes: ', scopes);
+
+        return store.dispatch('nuxt-locale-store/requireScopes', scopes);
+    }
 }

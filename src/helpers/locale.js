@@ -13,6 +13,7 @@ export function validateLocale(locale) {
 
 export function completeLocale(locale) {
 
+    validateLocale(locale);
 
     const [language, regio] = locale.iso.split('-');
 

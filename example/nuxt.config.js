@@ -43,6 +43,19 @@ module.exports = {
     '@nuxtjs/axios',
     ['~/../src/index.js', {
 
+      globalScopes: [
+        'globals/cart'
+      ],
+
+      dynamicScopes: [
+        {
+          routeName: 'user',
+          scopeId: 'users/:user'
+        }
+      ],
+
+
+
       defaultLocale: 'en-GB',
       
       locales: [

@@ -68,8 +68,8 @@ export function createStore(store, moduleName) {
                         return scope;
                     })
                     .catch(error => {
-
-                        console.warn("Could not fetch locale: " + path)
+                        
+                        console.warn(`Could not fetch locale '${scopeId}' at ` + path)
 
                         return {
                             id: scopeId,
@@ -89,20 +89,55 @@ export function createStore(store, moduleName) {
         getters: {
 
             getValue(state) {
+
+                function resolveIdentifier(scope, identifier) {
+
+                    const names = identifier.split('.');
+                    
+                    var currentObject = scope.messages;
+
+                    // Loop through names in identifier:
+                    for (var nameIndex = 0; nameIndex < names.length; nameIndex++) {
+
+                        const name = names[nameIndex];
+
+                        currentObject = currentObject[name];
+
+                        if (typeof currentObject == 'undefined') {
+                            return;
+                        }
+                    }
+
+                    return currentObject;
+                }
+
                 return (identifier) => {
 
                     console.log('getValue(\'' + identifier + '\')')
 
-                    for (var i = state.currentScopeList.length -1; i >= 0; i--) {
-                        
-                        const messages = state.scopes[state.currentScopeList[i]].messages;
+                    var index = state.currentScopeList.length;
 
-                        if (identifier in messages) {
-                            return messages[identifier];
+                    // Loop through required scopes in reversed order:
+                    while (index--) {
+                        
+                        // Resolve scope id:
+                        const scopeId = state.currentScopeList[index];
+                        
+                        // Resolve scope:
+                        const scope = state.scopes[scopeId];
+
+                        // Check if scope is loaded:
+                        if (typeof scope != 'undefined') {
+
+                            var result = resolveIdentifier(scope, identifier);
+
+                            if (result) {
+                                return result;
+                            }
                         }
                     }
 
-                    return '...';
+                    return;
                 }
             }
         }

@@ -31,14 +31,19 @@ export function createCore(app, defaultLocale, locales) {
 
         },
 
-        text(identifier, options) {
-            
+        text(identifier, params) {
             
             const template = app.store.getters['nuxt-locale-store/getValue'](identifier);
 
-            return template.replace(/{{([a-zA-Z0-9]+)}}/g, (value, name) => {
-                return options[name];
-            });
+            if (typeof template == 'string') {
+                
+                // Replace params:
+                return template.replace(/{{([a-zA-Z0-9]+)}}/g, (value, name) => {
+                    return params[name];
+                });
+            }
+
+            return template;
         },
 
         number(number, options) {
