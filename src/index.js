@@ -1,9 +1,11 @@
 import path from 'path';
 import { readdirSync } from 'fs';
 
-import { completeLocale } from './helpers/locale';
-import { createMiddleware } from './helpers/middleware';
 import { defaultOptions } from './helpers/constants';
+
+import { createMiddleware } from './helpers/middleware';
+
+import { completeLocale } from './helpers/locale';
 import { completeGlobalScope, compelteDynamicScope } from './helpers/scope';
 import { getAllLanguages } from './helpers/language';
 
