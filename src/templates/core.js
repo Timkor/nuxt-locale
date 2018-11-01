@@ -30,7 +30,7 @@ export function createCore(app, defaultLocale, locales) {
         url(route) {
 
         },
-
+        
         text(identifier, params) {
             
             const template = app.store.getters['nuxt-locale-store/getValue'](identifier);
@@ -64,6 +64,33 @@ export function createCore(app, defaultLocale, locales) {
             return new Intl.DateTimeFormat(this.iso, {
                 ...(options || {})
             }).format(date);
+        },
+
+        fetchScope(scopeId) {
+
+            const path = `_locale/${this.language}/${scopeId}.json`;
+                
+            return app.$axios.$get(path)
+                
+                .then(messages => {
+
+                    return {
+                        id: scopeId,
+                        messages: messages
+                    }
+                })
+
+                .catch(error => {
+                    
+                    console.warn(`Could not fetch locale '${scopeId}' at ` + path)
+
+                    return {
+                        id: scopeId,
+                        messages: {},
+                        error: error
+                    };
+                })
+            ;
         }
     }
 }

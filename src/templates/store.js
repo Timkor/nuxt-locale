@@ -47,37 +47,13 @@ export function createStore(store, moduleName) {
             },
 
             fetchScope({commit}, scopeId) {
-
-                //console.log('fetch', scopeId);
-                //return {};
-
-                const path = `_locale/${this.$locale.language}/${scopeId}.json`;
                 
-                return this.$axios.$get(path)
-                    .then(messages => {
+                return this.$locale.fetchScope(scopeId).then(scope => {
 
-                        return {
-                            id: scopeId,
-                            messages: messages
-                        }
-                    })
-                    .then(scope => {
-
-                        commit('addScope', scope);
-                        
-                        return scope;
-                    })
-                    .catch(error => {
-                        
-                        console.warn(`Could not fetch locale '${scopeId}' at ` + path)
-
-                        return {
-                            id: scopeId,
-                            messages: {},
-                            error: error
-                        };
-                    })
-                ;
+                    commit('addScope', scope);
+                    
+                    return scope;
+                });
             },
 
             addScope({ commit }, scope) {
