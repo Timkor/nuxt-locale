@@ -62,7 +62,6 @@ export function createMiddleware(globalScopes, dynamicScopes) {
             ...getDynamicScopes(route)
         ];
         
-        console.log('Route: ', route);
         console.log('Scopes: ', scopes);
 
         return store.dispatch('nuxt-locale-store/requireScopes', scopes);
