@@ -1,7 +1,7 @@
 import path from 'path';
 import { readdirSync } from 'fs';
 
-import { validateLocale, completeLocale } from './helpers/locale';
+import { completeLocale } from './helpers/locale';
 import { createMiddleware } from './helpers/middleware';
 import { defaultOptions } from './helpers/constants';
 import { completeGlobalScope, compelteDynamicScope } from './helpers/scope';
