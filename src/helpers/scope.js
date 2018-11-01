@@ -39,7 +39,7 @@ export function validateDynamicScope(scope) {
     }
 }
 
-export function compelteDynamicScope(scope) {
+export function completeDynamicScope(scope) {
 
     validateDynamicScope(scope);
 

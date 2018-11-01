@@ -23,14 +23,50 @@ export function createCore(app, defaultLocale, locales) {
         currentLocale: locales.find(locale => locale.iso === defaultLocale),
         locales: locales,
 
-        route(route) {
+        route(route, params, iso) {
 
+
+            if (typeof route == 'string') {
+                
+                if (typeof params == 'string') {
+                    iso = params;
+                    params = undefined;
+                }
+
+                return {
+                    name: (iso || this.iso).toLowerCase() + '-' + route,
+                    params: params,
+                    iso: (iso || this.iso)
+                };
+            }
+
+            return {
+                name: (iso || this.iso).toLowerCase() + '-' + route.name,
+                params: route.params,
+                iso: (iso || this.iso)
+            }
         },
 
-        url(route) {
+        path(route, params) {
 
+            const normalizedRoute = this.route.apply(this, arguments);
+
+            return app.router.resolve(normalizedRoute).href;
         },
-        
+
+        url(route, params) {
+
+            const normalizedRoute = this.route.apply(this, arguments);
+
+            const normalizedLocale = this.locales.find(
+                locale => normalizedRoute.iso.toLowerCase() == locale.iso.toLowerCase()
+            )
+
+            
+
+            return normalizedLocale.domain + app.router.resolve(normalizedRoute).href;
+        },
+
         text(identifier, params) {
             
             const template = app.store.getters['nuxt-locale-store/getValue'](identifier);

@@ -6,5 +6,7 @@ export const defaultOptions = {
 
     globalScopes: [],
     
-    dynamicScopes: []
+    dynamicScopes: [],
+
+    routesNameSeperator: '___',
 }

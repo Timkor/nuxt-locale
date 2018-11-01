@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <nuxt-link :to="{ name: 'index' }">Index</nuxt-link>
+    <nuxt-link :to="{ name: 'en-gb-index' }">Index</nuxt-link>
     <nuxt-link :to="'about'">About</nuxt-link>
 
     <nuxt/>

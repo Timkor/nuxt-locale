@@ -19,26 +19,26 @@ export function createMiddleware(globalScopes, dynamicScopes) {
         return globalScopeList;
     }
 
-    function getStaticScopes(route) {
+    function getStaticScopes(routeName) {
 
-        if (route.name) {
-            return [route.name];
+        if (routeName) {
+            return [routeName];
         }
 
         return [];
     }
 
-    function getDynamicScopes(route) {
+    function getDynamicScopes(routeName, routeParams) {
 
-        if (route.name && route.name in dynamicScopesMap) {
+        if (routeName && routeName in dynamicScopesMap) {
 
-            return dynamicScopesMap[route.name].map(scopeIdTemplate => {
+            return dynamicScopesMap[routeName].map(scopeIdTemplate => {
 
                 // Evaluatue template:
                 return scopeIdTemplate.replace(/\:([a-zA-Z0-9]+)/g, (value, name) => {
                     
                     // Lookup route param:
-                    return route.params[name];
+                    return routeParams[name];
                 });
             })
         }
@@ -53,13 +53,18 @@ export function createMiddleware(globalScopes, dynamicScopes) {
             return;
         }
 
+        console.log(route.name)
+        const [language, regio, ...routeName] = route.name.split('-');
+
+        console.log(routeName.join('-') || language)
+
         const scopes = [
 
             ...getGlobalScopes(),
 
-            ...getStaticScopes(route),
+            ...getStaticScopes(routeName),
 
-            ...getDynamicScopes(route)
+            ...getDynamicScopes(routeName, route.params)
         ];
         
         console.log('Scopes: ', scopes);

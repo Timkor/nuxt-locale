@@ -37,3 +37,10 @@ export function completeLocale(locale) {
 
     return locale;
 }
+
+export function completeLocaleISO(iso) {
+
+    const [language, regio] = iso.split('-');
+    
+    return language.toLowerCase() + '-' + regio.toUpperCase();
+}

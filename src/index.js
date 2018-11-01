@@ -5,9 +5,10 @@ import { defaultOptions } from './helpers/constants';
 
 import { createMiddleware } from './helpers/middleware';
 
-import { completeLocale } from './helpers/locale';
-import { completeGlobalScope, compelteDynamicScope } from './helpers/scope';
+import { completeLocale, completeLocaleISO } from './helpers/locale';
+import { completeGlobalScope, completeDynamicScope } from './helpers/scope';
 import { getAllLanguages } from './helpers/language';
+import { createRoutes } from './helpers/route';
 
 export default function nuxtLocale (moduleOptions) {
 
@@ -16,13 +17,28 @@ export default function nuxtLocale (moduleOptions) {
         ...moduleOptions
     };
 
+    
+
     // Validate and complete:
+    options.defaultLocale = completeLocaleISO(options.defaultLocale);
+
     options.locales = options.locales.map(completeLocale);
     options.globalScopes = options.globalScopes.map(completeGlobalScope);
-    options.dynamicScopes = options.dynamicScopes.map(compelteDynamicScope);
+    options.dynamicScopes = options.dynamicScopes.map(completeDynamicScope);
 
     // Make list of languages:
     options.languages = getAllLanguages(options.locales);
+
+
+    // Make routes:
+    this.extendRoutes((routes) => {
+        
+        const localizedRoutes = createRoutes(routes, options);
+
+        routes.splice(0, routes.length)
+        routes.unshift(...localizedRoutes)
+    })
+
 
     // Default locale:
     const templatesPath = path.resolve(__dirname, 'templates');
