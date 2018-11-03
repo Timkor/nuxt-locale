@@ -53,11 +53,18 @@ export function createMiddleware(globalScopes, dynamicScopes) {
             return;
         }
 
-        console.log(route.name)
+        if (typeof route.name != 'string') {
+            return;
+        }
+
+        if (!/^[a-z]{2}-[a-z]{2}-.+/.test(route.name)) {
+            return;
+        }
+
         const [language, regio, ...routeName] = route.name.split('-');
 
         console.log(routeName.join('-') || language)
-
+        
         const scopes = [
 
             ...getGlobalScopes(),

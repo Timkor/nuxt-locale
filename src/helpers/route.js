@@ -3,6 +3,8 @@
 
 export function createRoutes(routes, options) {
 
+    console.log(routes);
+
     var localizedRoutes = [];
 
     routes.forEach(route =>  {
@@ -29,12 +31,17 @@ export function localizeRoute(route, options) {
         // Add ISO prefix to route name:
         localizedRoute.name = `${iso}-${localizedRoute.name}`;
 
+        const path = 
+            options.pages[route.name] && options.pages[route.name][locale.language]
+            ? options.pages[route.name][locale.language] 
+            : route.path;
+
         // Add ISO prefix to path name:
-        localizedRoute.path = `/${iso}${route.path}`;
+        localizedRoute.path = `/${iso}${path}`;
         
         // Add alias for default locale:
         if (options.defaultLocale == locale.iso) {
-            localizedRoute.alias = route.path;
+            localizedRoute.alias = path;
         }
 
         return localizedRoute; 

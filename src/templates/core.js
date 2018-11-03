@@ -3,7 +3,7 @@ function stripLocaleFromPath(path) {
     const result = path.match(/^\/([a-z]{2}-[a-z]{2})/);
                 
     if (result.length) {
-        return path.substr(result[0].length);
+        return path.substring(result[0].length);
     }
 
     return path;

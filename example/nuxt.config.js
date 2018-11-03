@@ -71,7 +71,14 @@ module.exports = {
           iso: 'fr-fr',
           domain: 'example.fr'
         },
-      ]
+      ],
+
+      pages: {
+        'about': {
+          en: '/about-us',
+          nl: '/over-ons'
+        }
+      }
     }]
   ],
 
