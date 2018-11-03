@@ -25,26 +25,34 @@ export function createCore(app, defaultLocale, locales) {
 
         route(route, params, iso) {
 
+            if (typeof params == 'string') {
+                iso = params;
+                params = undefined;
+            }
 
+            iso = (iso || this.iso).toLowerCase();
+
+            var localizedRoute;
             if (typeof route == 'string') {
                 
-                if (typeof params == 'string') {
-                    iso = params;
-                    params = undefined;
-                }
-
-                return {
-                    name: (iso || this.iso).toLowerCase() + '-' + route,
+                localizedRoute = {
+                    name: iso + '-' + route,
                     params: params,
-                    iso: (iso || this.iso)
                 };
+            } else {
+                localizedRoute = {
+                    name: iso + '-' + route.name,
+                    params: route.params,
+                    query: route.query,
+                }
             }
 
-            return {
-                name: (iso || this.iso).toLowerCase() + '-' + route.name,
-                params: route.params,
-                iso: (iso || this.iso)
-            }
+            // Attach found locale:
+            localizedRoute.locale = this.locales.find(
+                locale => iso == locale.iso.toLowerCase()
+            );
+
+            return localizedRoute;
         },
 
         path(route, params) {
@@ -58,13 +66,9 @@ export function createCore(app, defaultLocale, locales) {
 
             const normalizedRoute = this.route.apply(this, arguments);
 
-            const normalizedLocale = this.locales.find(
-                locale => normalizedRoute.iso.toLowerCase() == locale.iso.toLowerCase()
-            )
+            const path = app.router.resolve(normalizedRoute).href;
 
-            
-
-            return normalizedLocale.domain + app.router.resolve(normalizedRoute).href;
+            return normalizedRoute.locale.domain + path;
         },
 
         text(identifier, params) {
