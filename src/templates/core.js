@@ -95,10 +95,12 @@ export function createCore(app, defaultLocale, locales) {
 
             if (typeof template == 'string') {
                 
-                // Replace params:
-                return template.replace(/{{([a-zA-Z0-9]+)}}/g, (value, name) => {
+                function replacer(value, name) {
                     return params[name];
-                });
+                }
+
+                // Replace params:
+                return template.replace(/{{([a-zA-Z0-9]+)}}/g, replacer).replace(/{([a-zA-Z0-9]+)}/g, replacer);
             }
 
             return template;
