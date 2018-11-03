@@ -69,13 +69,13 @@ export function createCore(app, defaultLocale, locales) {
 
             const normalizedRoute = this.route.apply(this, arguments);
 
-            const path = app.router.resolve(normalizedRoute).href;
+            var path = app.router.resolve(normalizedRoute).href;
 
             if (this.currentLocale == normalizedRoute.locale) {
-                return stripLocaleFromPath(path);
+                path = stripLocaleFromPath(path);
             }
 
-            return path;
+            return path.length > 0 ? path : '/';
         },
 
         url(route, params) {
@@ -145,7 +145,6 @@ export function createCore(app, defaultLocale, locales) {
                     return {
                         id: scopeId,
                         messages: {},
-                        error: error
                     };
                 })
             ;

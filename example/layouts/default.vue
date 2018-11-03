@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <nuxt-link to="/">Index</nuxt-link>
-    <nuxt-link :to="'about'">About</nuxt-link>
+    <nuxt-link :to="$locale.path('index', 'nl-nl')">Index</nuxt-link>
+    <nuxt-link :to="$locale.path('about', 'nl-nl')">About</nuxt-link>
 
     <nuxt/>
   </div>
