@@ -77,6 +77,10 @@ module.exports = {
         'about': {
           en: '/about-us',
           nl: '/over-ons'
+        },
+
+        'test/index': {
+          nl: '/test2'
         }
       }
     }]

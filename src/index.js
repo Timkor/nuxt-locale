@@ -9,6 +9,7 @@ import { completeLocale, completeLocaleISO } from './helpers/locale';
 import { completeGlobalScope, completeDynamicScope } from './helpers/scope';
 import { getAllLanguages } from './helpers/language';
 import { createRoutes } from './helpers/route';
+import { completePages } from './helpers/pages';
 
 export default function nuxtLocale (moduleOptions) {
 
@@ -26,6 +27,8 @@ export default function nuxtLocale (moduleOptions) {
     options.globalScopes = options.globalScopes.map(completeGlobalScope);
     options.dynamicScopes = options.dynamicScopes.map(completeDynamicScope);
 
+    options.pages = completePages(options.pages);
+    console.log(options.pages);
     // Make list of languages:
     options.languages = getAllLanguages(options.locales);
 
