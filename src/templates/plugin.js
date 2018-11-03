@@ -14,6 +14,10 @@ export default ({app, route, store}, inject) => {
         <%= JSON.stringify(options.dynamicScopes) %>
     );
 
+    app.router.afterEach(() => {
+        store.dispatch('nuxt-locale-store/applyScopes');
+    })
+
     // Setup vuex store:
     createStore(store, 'nuxt-locale-store');
     

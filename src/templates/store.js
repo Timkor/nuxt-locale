@@ -8,6 +8,7 @@ export function createStore(store, moduleName) {
         state: () => ({
             scopes: {},
             scopeList: [],
+            nextScopeList: [],
             currentScopeList: [],
         }),
 
@@ -16,6 +17,13 @@ export function createStore(store, moduleName) {
             addScope(state, scope) {
                 state.scopes[scope.id] = scope;
                 state.scopeList.push(scope.id);
+            },
+
+            setNextScopes(state, scopeIds) {
+                
+                state.nextScopeList.splice(0, state.nextScopeList.length);
+
+                scopeIds.forEach(scopeId => state.nextScopeList.push(scopeId));
             },
 
             setCurrentScopes(state, scopeIds) {
@@ -33,8 +41,12 @@ export function createStore(store, moduleName) {
                 return Promise.all(scopeIds.map(scopeId => dispatch('getScope', scopeId)))
                     .then(() => {
 
-                        commit('setCurrentScopes', scopeIds);
+                        commit('setNextScopes', scopeIds);
                     });
+            },
+
+            applyScopes({commit, state}) {
+                commit('setCurrentScopes', state.nextScopeList);
             },
 
             getScope({ commit, state, dispatch }, scopeId) {
@@ -108,6 +120,7 @@ export function createStore(store, moduleName) {
                             var result = resolveIdentifier(scope, identifier);
 
                             if (result) {
+                                console.log(result)
                                 return result;
                             }
                         }
