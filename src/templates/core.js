@@ -100,7 +100,11 @@ export function createCore(app, defaultLocale, locales) {
                 }
 
                 // Replace params:
-                return template.replace(/{{([a-zA-Z0-9]+)}}/g, replacer).replace(/{([a-zA-Z0-9]+)}/g, replacer);
+                if (typeof params == 'object') {
+                    return template.replace(/{{([a-zA-Z0-9]+)}}/g, replacer).replace(/{([a-zA-Z0-9]+)}/g, replacer);
+                }
+
+                return template;
             }
 
             return template;
