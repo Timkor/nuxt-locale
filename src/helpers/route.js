@@ -30,7 +30,7 @@ export function localizeRoute(route, options) {
         localizedRoute.name = `${iso}-${localizedRoute.name}`;
 
         // Add ISO prefix to path name:
-        localizedRoute.path = `/${locale.language}${route.path}`;
+        localizedRoute.path = `/${iso}${route.path}`;
         
         // Add alias for default locale:
         if (options.defaultLocale == locale.iso) {

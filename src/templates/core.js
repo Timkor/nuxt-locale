@@ -1,3 +1,13 @@
+function stripLocaleFromPath(path) {
+    
+    const result = path.match(/^\/([a-z]{2}-[a-z]{2})/);
+                
+    if (result.length) {
+        return path.substr(result[0].length);
+    }
+
+    return path;
+}
 
 export function createCore(app, defaultLocale, locales) {
 
@@ -59,7 +69,13 @@ export function createCore(app, defaultLocale, locales) {
 
             const normalizedRoute = this.route.apply(this, arguments);
 
-            return app.router.resolve(normalizedRoute).href;
+            const path = app.router.resolve(normalizedRoute).href;
+
+            if (this.currentLocale == normalizedRoute.locale) {
+                return stripLocaleFromPath(path);
+            }
+
+            return path;
         },
 
         url(route, params) {
@@ -68,7 +84,9 @@ export function createCore(app, defaultLocale, locales) {
 
             const path = app.router.resolve(normalizedRoute).href;
 
-            return normalizedRoute.locale.domain + path;
+            
+
+            return normalizedRoute.locale.domain + stripLocaleFromPath(path);
         },
 
         text(identifier, params) {
