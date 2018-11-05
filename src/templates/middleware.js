@@ -76,6 +76,15 @@ export function createMiddleware(globalScopes, dynamicScopes) {
         
         console.log('Scopes: ', scopes);
 
-        return store.dispatch('nuxt-locale-store/requireScopes', scopes);
+        return store.dispatch('nuxt-locale-store/requireScopes', scopes)
+            .then((result) => {
+
+                if (process.server) {
+                    return store.dispatch('nuxt-locale-store/applyScopes');
+                }
+
+                return result;
+            })
+        ;
     }
 }

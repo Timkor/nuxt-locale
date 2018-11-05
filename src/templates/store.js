@@ -125,7 +125,8 @@ export function createStore(store, moduleName) {
                             }
                         }
                     }
-
+                    
+                    console.warn(`Could not resolve '${identifier}'`, state.currentScopeList);
                     return;
                 }
             }
