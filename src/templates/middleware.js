@@ -73,18 +73,17 @@ export function createMiddleware(globalScopes, dynamicScopes) {
 
             ...getDynamicScopes(routeName, route.params)
         ];
+
+        const promise = store.dispatch('nuxt-locale-store/requireScopes', scopes)
         
-        console.log('Scopes: ', scopes);
+        // router.afterEach is not supported on SSR
+        // So apply the scopes manually server side:
+        if (process.server) {
+            promise.then((result) => {
+                return store.dispatch('nuxt-locale-store/applyScopes');
+            });
+        }
 
-        return store.dispatch('nuxt-locale-store/requireScopes', scopes)
-            .then((result) => {
-
-                if (process.server) {
-                    return store.dispatch('nuxt-locale-store/applyScopes');
-                }
-
-                return result;
-            })
-        ;
+        return promise;
     }
 }

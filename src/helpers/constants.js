@@ -8,5 +8,5 @@ export const defaultOptions = {
     
     dynamicScopes: [],
 
-    routesNameSeperator: '___',
+    routesNameSeperator: '___', // Deprecated
 }
