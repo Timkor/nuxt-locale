@@ -30,7 +30,7 @@ export function createCore(app, defaultLocale, locales) {
         },
 
         get currentRoute() {
-            return this.reverseRoute(app.$route);
+            return this.reverseRoute(app.route);
         },
 
         //defaultLocale: defaultLocale,
