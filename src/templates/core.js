@@ -29,9 +29,31 @@ export function createCore(app, defaultLocale, locales) {
             return this.currentLocale.currency;
         },
 
+        get currentRoute() {
+            return this.reverseRoute(app.$route);
+        },
+
         //defaultLocale: defaultLocale,
         currentLocale: locales.find(locale => locale.iso === defaultLocale),
         locales: locales,
+
+        reverseRoute(localizedRoute) {
+
+            try {
+                
+                const [fullMatch, language, regio, name] = localizedRoute.name.match(/^([a-z]{2})-([a-z]{2})-(.*)$/);
+            
+                return {
+                    name,
+                    language,
+                    regio,
+                    iso: language + '-' + regio.toUpperCase() 
+                }
+
+            } catch (e) {
+                return;
+            }
+        },
 
         route(route, params, iso) {
 
@@ -40,7 +62,7 @@ export function createCore(app, defaultLocale, locales) {
                 params = undefined;
             }
 
-            iso = (iso || this.iso).toLowerCase();
+            iso = (typeof route.iso == 'string' ? route.iso : (iso || this.iso)).toLowerCase();
 
             var localizedRoute;
             if (typeof route == 'string') {
