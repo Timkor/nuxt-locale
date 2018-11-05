@@ -101,6 +101,8 @@ export function createStore(store, moduleName) {
 
                 return (identifier) => {
 
+                   
+
                     var index = state.currentScopeList.length;
 
                     // Loop through required scopes in reversed order:

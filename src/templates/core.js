@@ -116,6 +116,11 @@ export function createCore(app, defaultLocale, locales) {
             const template = app.store.getters['nuxt-locale-store/getValue'](identifier);
 
             if (typeof template == 'string') {
+
+                // Resolve if neccesary:
+                if (template.indexOf('@:') == 0) {
+                    return this.text(template.substring(2), params);
+                }
                 
                 function replacer(value, name) {
                     return params[name];
