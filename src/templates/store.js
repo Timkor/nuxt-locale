@@ -123,7 +123,7 @@ export function createStore(store, moduleName) {
                         }
                     }
                     
-                    console.warn(`Could not resolve '${identifier}'`, state.currentScopeList);
+                    console.warn(`Could not resolve '${identifier}'`);
                     return;
                 }
             }
