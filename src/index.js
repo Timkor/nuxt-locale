@@ -28,7 +28,7 @@ export default function nuxtLocale (moduleOptions) {
     options.dynamicScopes = options.dynamicScopes.map(completeDynamicScope);
 
     options.pages = completePages(options.pages);
-    console.log(options.pages);
+    
     // Make list of languages:
     options.languages = getAllLanguages(options.locales);
 

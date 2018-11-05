@@ -3,16 +3,12 @@
 
 export function createRoutes(routes, options) {
 
-    console.log(routes);
-
     var localizedRoutes = [];
 
     routes.forEach(route =>  {
 
         localizedRoutes = localizedRoutes.concat(localizeRoute(route, options));
     })
-    
-    console.log(localizedRoutes);
 
     return localizedRoutes;
 }

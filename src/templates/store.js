@@ -101,8 +101,6 @@ export function createStore(store, moduleName) {
 
                 return (identifier) => {
 
-                    console.log('getValue(\'' + identifier + '\')')
-
                     var index = state.currentScopeList.length;
 
                     // Loop through required scopes in reversed order:
@@ -120,7 +118,6 @@ export function createStore(store, moduleName) {
                             var result = resolveIdentifier(scope, identifier);
 
                             if (result) {
-                                console.log(result)
                                 return result;
                             }
                         }
