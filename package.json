@@ -1,6 +1,6 @@
 {
   "name": "nuxt-locale",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Localisation for Nuxt.js",
   "main": "src/index.js",
   "directories": {
