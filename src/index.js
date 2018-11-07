@@ -16,9 +16,9 @@ export default function nuxtLocale (moduleOptions) {
     const options = {
         ...defaultOptions,
         ...moduleOptions
-    };
+    };    
 
-    
+    console.log('nuxt-locale loaded');
 
     // Validate and complete:
     options.defaultLocale = completeLocaleISO(options.defaultLocale);
