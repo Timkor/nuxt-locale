@@ -28,7 +28,10 @@
 
 <script>
 export default {
-    
+    transition: {
+        name: 'fade',
+        duration: 300,
+    }
 }
 </script>
 
