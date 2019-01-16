@@ -38,7 +38,7 @@ export function createMiddleware(globalScopes, dynamicScopes) {
                 return scopeIdTemplate.replace(/\:([a-zA-Z0-9]+)/g, (value, name) => {
                     
                     // Lookup route param:
-                    return routeParams[name];
+                    return (''+routeParams[name]).toLowerCase();
                 });
             })
         }
