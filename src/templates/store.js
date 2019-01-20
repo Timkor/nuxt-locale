@@ -1,3 +1,4 @@
+console.log('aaa')
 
 export function createStore(store, moduleName) {
 
@@ -37,10 +38,10 @@ export function createStore(store, moduleName) {
         actions: {
 
             requireScopes({ commit, dispatch }, scopeIds) {
-
+                console.time('nuxt-locale:requireScopes');
                 return Promise.all(scopeIds.map(scopeId => dispatch('getScope', scopeId)))
                     .then(() => {
-
+                        console.timeEnd('nuxt-locale:requireScopes');
                         commit('setNextScopes', scopeIds);
                     });
             },
@@ -78,6 +79,7 @@ export function createStore(store, moduleName) {
 
             getValue(state) {
 
+
                 function resolveIdentifier(scope, identifier) {
 
                     const names = identifier.split('.');
@@ -101,6 +103,7 @@ export function createStore(store, moduleName) {
 
                 return (identifier) => {
 
+                    console.time('nuxt-locale:getValue()');
                    
 
                     var index = state.currentScopeList.length;
@@ -119,12 +122,15 @@ export function createStore(store, moduleName) {
 
                             var result = resolveIdentifier(scope, identifier);
 
+                            console.timeEnd('nuxt-locale:getValue()')
+
                             if (result) {
                                 return result;
                             }
                         }
                     }
                     
+                    console.timeEnd('nuxt-locale:getValue()')
                     console.warn(`Could not resolve '${identifier}'`);
                     return;
                 }

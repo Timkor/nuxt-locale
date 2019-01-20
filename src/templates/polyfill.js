@@ -1,4 +1,8 @@
 
+if (process.server) {
+        
+    
+}
 
 /**
  * Creates a polyfill for Intl if neccesary
@@ -8,9 +12,7 @@
 export function createPolyfill() {
     
     if (process.server) {
-        
         Intl = require('intl');
-
         return Promise.resolve();
 
     } else {

@@ -11,6 +11,7 @@ import { getAllLanguages } from './helpers/language';
 import { createRoutes } from './helpers/route';
 import { completePages } from './helpers/pages';
 
+
 export default function nuxtLocale (moduleOptions) {
 
     const options = {
@@ -18,7 +19,7 @@ export default function nuxtLocale (moduleOptions) {
         ...moduleOptions
     };    
 
-    console.log('nuxt-locale loaded');
+    console.log('nuxt-locale loaded2');
 
     // Validate and complete:
     options.defaultLocale = completeLocaleISO(options.defaultLocale);
@@ -72,3 +73,5 @@ export default function nuxtLocale (moduleOptions) {
         path.join(this.options.srcDir, options.localeDir)
     ));
 }
+
+export const meta = require('./../package.json')

@@ -8,6 +8,8 @@ import { createCore } from './core';
 
 export default ({app, route, store}, inject) => {
 
+    console.log('a');
+    
     // Setup router middleware:
     middleware['nuxt-locale-middleware'] = createMiddleware(
         <%= JSON.stringify(options.globalScopes) %>,
