@@ -9,7 +9,42 @@ function stripLocaleFromPath(path) {
     return path;
 }
 
+const cache = {};
+
+function memoize(func, name, duration) {
+
+    return function(...args) {
+        
+        // Get space:
+        const space = cache[name] || (cache[name] = {});
+
+        // Generate key:
+        const key = JSON.stringify(args);
+
+        if (key in space && (duration === -1 || (+new Date()) - space[key].time < duration)) {
+            return space[key].value;
+        }
+
+        space[key] = {
+            value: func.apply(this, args).then((res) => {
+                return res;
+            }),
+            time: +new Date()
+        };
+
+        return space[key].value;
+    }
+}
+
 export function createCore(app, defaultLocale, locales) {
+
+
+    const memoizedFetch = memoize((path) => {
+        
+        return app.$axios.$get(path);
+
+    }, 'x', -1);
+    
 
     return {
         
@@ -160,8 +195,8 @@ export function createCore(app, defaultLocale, locales) {
         fetchScope(scopeId) {
 
             const path = `_locale/${this.language}/${scopeId}.json`;
-                
-            return app.$axios.$get(path)
+
+            return memoizedFetch(path)
                 
                 .then(messages => {
 

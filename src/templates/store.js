@@ -38,6 +38,7 @@ export function createStore(store, moduleName) {
         actions: {
 
             requireScopes({ commit, dispatch }, scopeIds) {
+
                 console.time('nuxt-locale:requireScopes');
                 return Promise.all(scopeIds.map(scopeId => dispatch('getScope', scopeId)))
                     .then(() => {
@@ -127,7 +128,9 @@ export function createStore(store, moduleName) {
                         }
                     }
                     
-                    console.warn(`Could not resolve '${identifier}'`);
+                    if (process.client) {
+                        console.warn(`Could not resolve '${identifier}'`);
+                    }
                     return;
                 }
             }

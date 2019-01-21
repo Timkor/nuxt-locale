@@ -30,8 +30,9 @@
   "homepage": "https://github.com/Timkor/nuxt-locale#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "serve-static": "^1.13.2",
+    "fast-memoize": "^2.5.1",
     "intl": "^1.2.5",
-    "locale-currency": "0.0.2"
+    "locale-currency": "0.0.2",
+    "serve-static": "^1.13.2"
   }
 }
