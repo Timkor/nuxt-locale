@@ -103,7 +103,6 @@ export function createStore(store, moduleName) {
 
                 return (identifier) => {
 
-                    console.time('nuxt-locale:getValue()');
                    
 
                     var index = state.currentScopeList.length;
@@ -122,15 +121,12 @@ export function createStore(store, moduleName) {
 
                             var result = resolveIdentifier(scope, identifier);
 
-                            console.timeEnd('nuxt-locale:getValue()')
-
                             if (result) {
                                 return result;
                             }
                         }
                     }
                     
-                    console.timeEnd('nuxt-locale:getValue()')
                     console.warn(`Could not resolve '${identifier}'`);
                     return;
                 }
