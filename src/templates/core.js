@@ -36,14 +36,11 @@ function memoize(func, name, duration) {
     }
 }
 
-export function createCore(app, defaultLocale, locales) {
+export function createCore({app, isDev}, defaultLocale, locales) {
 
+    const plainFetch = (path) => app.$axios.$get(path);
 
-    const memoizedFetch = memoize((path) => {
-        
-        return app.$axios.$get(path);
-
-    }, 'x', -1);
+    const memoizedFetch = !isDev ? memoize(plainFetch, 'x', -1) : plainFetch;
     
 
     return {
