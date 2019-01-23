@@ -1,6 +1,6 @@
 console.log('aaa')
 
-export function createStore(store, moduleName) {
+export function createStore({store}, moduleName) {
 
     store.registerModule(moduleName, {
         
