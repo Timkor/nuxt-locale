@@ -1,5 +1,3 @@
-console.log('aaa')
-
 export function createStore({store}, moduleName) {
 
     store.registerModule(moduleName, {
