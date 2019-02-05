@@ -36,7 +36,7 @@ function memoize(func, name, duration) {
     }
 }
 
-export function createCore(app, defaultLocale, locales) {
+export function createCore(app, defaultLocale, locales, globalParameters) {
 
 
     const memoizedFetch = memoize((path) => {
@@ -48,6 +48,8 @@ export function createCore(app, defaultLocale, locales) {
 
     return {
         
+		globals: globalParameters,
+		
         get iso() {
             return this.currentLocale.iso;
         },
@@ -158,7 +160,7 @@ export function createCore(app, defaultLocale, locales) {
                 }
                 
                 function replacer(value, name) {
-                    return params[name];
+                    return params[name] || this.globals[name];
                 }
 
                 // Replace params:
@@ -173,13 +175,13 @@ export function createCore(app, defaultLocale, locales) {
         },
 
         number(number, options) {
-            return new Intl.NumberFormat(this.iso, {
+            return new Intl.NumberFormat(this.language, {
                 ...(options || {})
             }).format(number);
         },
 
         money(number, options) {
-            return new Intl.NumberFormat(this.iso, { 
+            return new Intl.NumberFormat(this.language, { 
                 style: 'currency', 
                 currency: this.currency,
                 ...(options || {})
@@ -187,7 +189,7 @@ export function createCore(app, defaultLocale, locales) {
         },
 
         date(date, options) {
-            return new Intl.DateTimeFormat(this.iso, {
+            return new Intl.DateTimeFormat(this.language, {
                 ...(options || {})
             }).format(date);
         },

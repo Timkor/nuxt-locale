@@ -27,7 +27,8 @@ export default ({app, route, store}, inject) => {
     inject('locale', createCore(
         app,
         <%= JSON.stringify(options.defaultLocale) %>,
-        <%= JSON.stringify(options.locales) %>
+        <%= JSON.stringify(options.locales) %>,
+		<%= JSON.stringify(options.globalParameters) %>
     ));
     
     // Polyfill required JS deps:

@@ -3,7 +3,9 @@ export const defaultOptions = {
 
     
     localeDir: '/locales',
-
+	
+	globalParameters: {},
+	
     globalScopes: [],
     
     dynamicScopes: [],
