@@ -145,7 +145,7 @@ export function createCore({app, isDev}, defaultLocale, locales, globalParameter
             return normalizedRoute.locale.domain + stripLocaleFromPath(path);
         },
 
-        text(identifier, params) {
+        text(identifier, params = {}) {
             
             const template = app.store.getters['nuxt-locale-store/getValue'](identifier);
 
@@ -156,16 +156,13 @@ export function createCore({app, isDev}, defaultLocale, locales, globalParameter
                     return this.text(template.substring(2), params);
                 }
                 
+                const self = this;
                 function replacer(value, name) {
-                    return params[name] || this.globals[name];
+                    return params[name] || self.globals[name];
                 }
 
                 // Replace params:
-                if (typeof params == 'object') {
-                    return template.replace(/{{([a-zA-Z0-9]+)}}/g, replacer).replace(/{([a-zA-Z0-9]+)}/g, replacer);
-                }
-
-                return template;
+                return template.replace(/{{([a-zA-Z0-9]+)}}/g, replacer).replace(/{([a-zA-Z0-9]+)}/g, replacer);
             }
 
             return template;
